@@ -1,0 +1,6 @@
+@DistributedSystem.API_HostAddress = http://localhost:5188
+
+GET {{DistributedSystem.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

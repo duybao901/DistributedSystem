@@ -1,25 +1,82 @@
+using Carter;
+using DistributedSystem.API.DependencyInjection.Extensions;
+using DistributedSystem.API.Middleware;
+using DistributedSystem.Presentation.APIs.Products;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Logging.ClearProviders().AddSerilog();
+builder.Host.UseSerilog();
+
+// Api
+builder.Services.AddControllers().AddApplicationPart(DistributedSystem.Presentation.AssemblyReference.Assembly);
+builder.Services.AddSingleton<ProductApi>();
+
+// Add Carter
+builder.Services.AddCarter();
+
+// Middleware
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
+// Add Swagger
+builder.Services
+        .AddSwaggerGenNewtonsoftSupport()
+        .AddFluentValidationRulesToSwagger()
+        .AddEndpointsApiExplorer()
+        .AddSwaggerAPI();
+
+builder.Services
+    .AddApiVersioning(options => options.ReportApiVersions = true)
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Using middleware
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// Add Minial API Enpoint
+//var versionedApi = app.NewVersionedApi();
+//var apiV1 = app.Services.GetRequiredService<ProductApi>();
+//apiV1.AddRoutes(versionedApi);
+
+// Add API Endpoint with carter module
+app.MapCarter();
+
+
+// Configure the HTTP request pipeline. 
+if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
+    app.UseSwaggerAPI(); // => After MapCarter => Show Version
+
+//app.UseHttpsRedirection();
+
+//app.UseAuthorization();
+
+//app.MapControllers();
+
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    await app.RunAsync();
+    Log.Information("Stopped cleanly");
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+    await app.StopAsync();
+}
+finally
+{
+    Log.CloseAndFlush();
+    await app.DisposeAsync();
+}

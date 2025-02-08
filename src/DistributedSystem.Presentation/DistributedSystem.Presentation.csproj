@@ -11,4 +11,9 @@
     <ProjectReference Include="..\DistributedSystem.Infrastructure\DistributedSystem.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="Carter" Version="8.2.1" />
+  </ItemGroup>
+
 </Project>

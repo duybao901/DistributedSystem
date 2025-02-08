@@ -1,6 +1,5 @@
 ﻿using DistributedSystem.Domain.Exceptions;
-
-namespace DemoCICD.Application.Exceptions;
+namespace DistributedSystem.Application.Exceptions;
 
 public sealed class ValidationException : DomainException
 {

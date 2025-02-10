@@ -1,9 +1,11 @@
 using Carter;
 using DistributedSystem.API.DependencyInjection.Extensions;
 using DistributedSystem.API.Middleware;
+using DistributedSystem.Application.DependencyInjection.Extensions;
+using DistributedSystem.Persistance.DependencyInjection.Extensions;
+using DistributedSystem.Persistance.DependencyInjection.Options;
 using DistributedSystem.Presentation.APIs.Products;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Diagnostics;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,16 @@ builder.Host.UseSerilog();
 // Api
 builder.Services.AddControllers().AddApplicationPart(DistributedSystem.Presentation.AssemblyReference.Assembly);
 builder.Services.AddSingleton<ProductApi>();
+
+// Add MediatR, AutoMapper
+builder.Services.AddConfigureMediatR();
+builder.Services.AddConfigureAutoMapper();
+
+// Configure Options and SQL
+builder.Services.AddInterceptorPersistence();
+builder.Services.ConfigureSqlServerRetryOptionsPersistence(builder.Configuration.GetSection(nameof(SqlServerRetryOptions)));
+builder.Services.AddRepositoryPersistence();
+builder.Services.AddSqlServerPersistence();
 
 // Add Carter
 builder.Services.AddCarter();

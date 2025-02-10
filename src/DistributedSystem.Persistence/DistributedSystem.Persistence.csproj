@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DistributedSystem.Application\DistributedSystem.Application.csproj" />
-    <ProjectReference Include="..\DistributedSystem.Infrastructure\DistributedSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\DistributedSystem.Domain\DistributedSystem.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-    <PackageReference Include="Carter" Version="8.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="9.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

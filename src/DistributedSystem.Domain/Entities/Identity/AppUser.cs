@@ -2,7 +2,7 @@
 
 namespace DistributedSystem.Domain.Entities.Identity;
 
-public class AppUser
+public class AppUser : IdentityUser<Guid>
 {
     public string FirstName { get; set; }
 

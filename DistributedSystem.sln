@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.Contract", "src\DistributedSystem.Contract\DistributedSystem.Contract.csproj", "{D7B68D4D-CBAA-4168-BBEA-6900F36B2E60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.Persistance", "src\DistributedSystem.Persistance\DistributedSystem.Persistance.csproj", "{629AEB80-8F09-400C-937B-6F9950BCED39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.Persistence", "src\DistributedSystem.Persistence\DistributedSystem.Persistence.csproj", "{629AEB80-8F09-400C-937B-6F9950BCED39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.Presentation", "src\DistributedSystem.Presentation\DistributedSystem.Presentation.csproj", "{305DD654-B837-4333-AB9D-DFB02E3ABF4B}"
 EndProject

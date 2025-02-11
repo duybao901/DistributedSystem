@@ -1,5 +1,5 @@
 ﻿using DistributedSystem.Contract.Abstractions.Message;
-using DistributedSystem.Contract.Abtractions.Message;
+using DistributedSystem.Contract.Abstractions.Message;
 
 namespace DistributedSystem.Contract.Services.V1.Product;
 

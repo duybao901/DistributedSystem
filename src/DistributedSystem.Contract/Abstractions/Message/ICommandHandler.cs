@@ -1,12 +1,14 @@
-﻿using DistributedSystem.Contract.Abtractions.Shared;
+﻿using DistributedSystem.Contract.Abstractions.Shared;
 using MediatR;
 
-namespace DistributedSystem.Contract.Abtractions.Message;
+namespace DistributedSystem.Contract.Abstractions.Message;
 
-public interface ICommandHandler<TCommand> : IRequestHandler<ICommand, Result>
+public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
+    where TCommand : ICommand
 {
 }
 
-public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<ICommand<TResponse>, Result<TResponse>>
+public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
+    where TCommand : ICommand<TResponse>
 {
 }

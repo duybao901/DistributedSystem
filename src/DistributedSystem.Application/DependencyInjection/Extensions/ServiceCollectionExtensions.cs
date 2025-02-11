@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
      => services.AddMediatR(config =>
          config.RegisterServicesFromAssembly(AssemblyReference.Assembly))
         .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
+        .AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>))
         //.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineDefaultBehavior<,>))
         .AddValidatorsFromAssembly(Contract.AssemblyReference.Assembly, includeInternalTypes: true) // Quét assembly được chỉ định để tìm và đăng ký tất cả các validator vào DI container
         .AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>)) // Measure Permance

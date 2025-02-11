@@ -21,7 +21,7 @@ public static class SwaggerExtensions
             // Duyệt qua danh sách phiên bản API và tạo Swagger UI cho từng phiên bản
             foreach (var version in app.DescribeApiVersions().Select(version => version.GroupName))
             {
-                options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version + 1);
+                options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
             }
 
             options.DisplayRequestDuration();

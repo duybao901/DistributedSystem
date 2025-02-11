@@ -1,0 +1,26 @@
+﻿using DistributedSystem.Contract.Abstractions.Message;
+using DistributedSystem.Contract.Abstractions.Shared;
+using DistributedSystem.Contract.Services.V1.Product;
+using DistributedSystem.Domain.Abstractions.Repositories;
+using DistributedSystem.Domain.Exceptions;
+namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
+
+public sealed class UpdateProductCommandHandler : ICommandHandler<Command.UpdateProductCommand>
+{
+    private readonly IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> _productRepository;
+
+    public UpdateProductCommandHandler(IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> repositoryBase)
+    {
+        _productRepository = repositoryBase;
+    }
+
+    public async Task<Result> Handle(Command.UpdateProductCommand request, CancellationToken cancellationToken)
+    {
+        var product = await _productRepository.FindByIdAsync(request.Id)
+            ?? throw new ProductException.ProductNotFoundException(request.Id);
+
+        product.Update(request.Name, request.Price, request.Description);
+
+        return Result.Success();
+    }
+}

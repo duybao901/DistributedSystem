@@ -1,6 +1,5 @@
 ﻿using DistributedSystem.Domain.Abstractions;
 using DistributedSystem.Domain.Abstractions.Entities;
-using DistributedSystem.Persistence;
 using DistributedSystem.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

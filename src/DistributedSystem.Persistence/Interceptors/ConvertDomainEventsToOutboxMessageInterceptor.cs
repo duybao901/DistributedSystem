@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
 
-namespace DistributedSystem.Persistance.Interceptors;
+namespace DistributedSystem.Persistence.Interceptors;
 
 public sealed class ConvertDomainEventsToOutboxMessageInterceptor
     : SaveChangesInterceptor

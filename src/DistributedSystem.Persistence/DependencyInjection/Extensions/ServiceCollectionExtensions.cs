@@ -1,9 +1,8 @@
 ﻿using DistributedSystem.Domain.Abstractions;
 using DistributedSystem.Domain.Abstractions.Repositories;
 using DistributedSystem.Domain.Entities.Identity;
-using DistributedSystem.Persistance.DependencyInjection.Options;
-using DistributedSystem.Persistance.Interceptors;
-using DistributedSystem.Persistence;
+using DistributedSystem.Persistence.DependencyInjection.Options;
+using DistributedSystem.Persistence.Interceptors;
 using DistributedSystem.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace DistributedSystem.Persistance.DependencyInjection.Extensions;
+namespace DistributedSystem.Persistence.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -32,20 +31,19 @@ public static class ServiceCollectionExtensions
             builder
             .EnableDetailedErrors(true)
             .EnableSensitiveDataLogging(true)
-            .UseLazyLoadingProxies(true) // If UseLazyLoadingPrixies, all navigation fields should be VIRTUAL
+            .UseLazyLoadingProxies(true) // => If UseLazyLoadingProxies, all of the navigation fields should be VIRTUAL
             .UseSqlServer(
                 connectionString: configuration.GetConnectionString("ConnectionStrings"),
-                sqlServerOptionsAction: optionsBuilder => 
-                    optionsBuilder.ExecutionStrategy(
-                        dependencies => new SqlServerRetryingExecutionStrategy(
-                            dependencies: dependencies,
-                            maxRetryCount: options.CurrentValue.MaxRetryCount,
-                            maxRetryDelay: options.CurrentValue.MaxRetryDelay,
-                            errorNumbersToAdd: options.CurrentValue.ErrorNumbersToAdd))
-                    .MigrationsAssembly(typeof(ApplicationDbContext).Assembly.GetName().Name))
-            .AddInterceptors(
-                outboxInterceptor, 
-                auditableInterceptor);
+                sqlServerOptionsAction: optionsBuilder
+                        => optionsBuilder.ExecutionStrategy(
+                                dependencies => new SqlServerRetryingExecutionStrategy(
+                                    dependencies: dependencies,
+                                    maxRetryCount: options.CurrentValue.MaxRetryCount,
+                                    maxRetryDelay: options.CurrentValue.MaxRetryDelay,
+                                    errorNumbersToAdd: options.CurrentValue.ErrorNumbersToAdd))
+                            .MigrationsAssembly(typeof(ApplicationDbContext).Assembly.GetName().Name))
+            .AddInterceptors(outboxInterceptor,
+                    auditableInterceptor);
             #endregion ============= SQL-SERVER-STRATEGY-1 =============
 
             #region ============== SQL-SERVER-STRATEGY-2 ==============

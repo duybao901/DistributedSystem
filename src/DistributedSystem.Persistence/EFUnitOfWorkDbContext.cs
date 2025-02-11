@@ -2,7 +2,7 @@
 using DistributedSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace DistributedSystem.Persistance;
+namespace DistributedSystem.Persistence;
 
 public class EFUnitOfWorkDbContext<TContext> : IUnitOfWorkDbContext<TContext>
     where TContext : DbContext

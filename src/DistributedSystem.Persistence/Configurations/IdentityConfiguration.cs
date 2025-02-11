@@ -1,9 +1,9 @@
-﻿using DistributedSystem.Persistance.Constants;
+﻿using DistributedSystem.Persistence.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace DistributedSystem.Persistance.Configurations;
+namespace DistributedSystem.Persistence.Configurations;
 
 internal sealed class AppUserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<Guid>>
 {

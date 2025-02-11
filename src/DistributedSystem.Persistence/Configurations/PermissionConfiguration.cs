@@ -1,5 +1,5 @@
 ﻿using DistributedSystem.Domain.Entities.Identity;
-using DistributedSystem.Persistance.Constants;
+using DistributedSystem.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

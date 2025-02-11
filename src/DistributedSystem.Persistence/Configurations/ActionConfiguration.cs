@@ -1,9 +1,9 @@
-﻿using DistributedSystem.Persistance.Constants;
+﻿using DistributedSystem.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Action = DistributedSystem.Domain.Entities.Identity.Action;
 
-namespace DistributedSystem.Persistance.Configurations;
+namespace DistributedSystem.Persistence.Configurations;
 
 internal class ActionConfiguration : IEntityTypeConfiguration<Action>
 {

@@ -1,9 +1,9 @@
 ﻿using DistributedSystem.Domain.Entities.Identity;
-using DistributedSystem.Persistance.Constants;
+using DistributedSystem.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DistributedSystem.Persistance.Configurations;
+namespace DistributedSystem.Persistence.Configurations;
 
 internal sealed class AppRoleConfiguration : IEntityTypeConfiguration<AppRole>
 {

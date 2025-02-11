@@ -3,7 +3,6 @@ using DistributedSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Action = DistributedSystem.Domain.Entities.Identity.Action;
-using DistributedSystem.Persistance;
 
 namespace DistributedSystem.Persistence;
 

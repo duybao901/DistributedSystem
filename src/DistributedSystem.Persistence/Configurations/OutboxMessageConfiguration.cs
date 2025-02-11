@@ -1,7 +1,7 @@
 ﻿using DistributedSystem.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using DistributedSystem.Persistance.Constants;
+using DistributedSystem.Persistence.Constants;
 
 namespace DistributedSystem.Persistence.Configurations;
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
 
-namespace DistributedSystem.Persistance;
+namespace DistributedSystem.Persistence;
 
 public class EFUnitOfWork : IUnitOfWork
 {

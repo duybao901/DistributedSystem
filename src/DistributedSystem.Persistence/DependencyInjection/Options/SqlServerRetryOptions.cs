@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DistributedSystem.Persistance.DependencyInjection.Options;
+namespace DistributedSystem.Persistence.DependencyInjection.Options;
 
 public record SqlServerRetryOptions
 {

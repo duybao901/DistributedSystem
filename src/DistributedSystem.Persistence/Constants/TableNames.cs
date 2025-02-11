@@ -1,4 +1,4 @@
-﻿namespace DistributedSystem.Persistance.Constants;
+﻿namespace DistributedSystem.Persistence.Constants;
 
 internal static class TableNames
 {

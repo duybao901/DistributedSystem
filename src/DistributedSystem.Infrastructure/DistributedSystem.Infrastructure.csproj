@@ -11,4 +11,8 @@
     <ProjectReference Include="..\DistributedSystem.Persistence\DistributedSystem.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Caching\" />
+  </ItemGroup>
+
 </Project>

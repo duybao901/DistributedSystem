@@ -59,9 +59,9 @@ public class ProductApi : ApiEndpoint, ICarterModule
         return Results.Ok(result);
     }
 
-    public static async Task<IResult> GetProductByIdV1(ISender sender, Guid productId)
+    public static async Task<IResult> GetProductByIdV1(ISender sender, Guid productId, int a)
     {
-        var getProductByIdQuery = new CommandV1.Query.GetProductByIdQuery(productId);
+        var getProductByIdQuery = new CommandV1.Query.GetProductByIdQuery(productId, a);
         var result = await sender.Send(getProductByIdQuery);
 
         return Results.Ok(result);

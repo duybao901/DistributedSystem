@@ -2,6 +2,7 @@ using Carter;
 using DistributedSystem.API.DependencyInjection.Extensions;
 using DistributedSystem.API.Middleware;
 using DistributedSystem.Application.DependencyInjection.Extensions;
+using DistributedSystem.Infrastructure.DependencyInjection.Extensions;
 using DistributedSystem.Persistence.DependencyInjection.Extensions;
 using DistributedSystem.Persistence.DependencyInjection.Options;
 using DistributedSystem.Presentation.APIs.Products;
@@ -17,6 +18,10 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Logging.ClearProviders().AddSerilog();
 builder.Host.UseSerilog();
+
+// Add Authentication & Authorization
+builder.Services.AddInfrastructureServices();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Api
 builder.Services.AddControllers().AddApplicationPart(DistributedSystem.Presentation.AssemblyReference.Assembly);
@@ -71,9 +76,10 @@ app.MapCarter();
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
     app.UseSwaggerAPI(); // => After MapCarter => Show Version
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 //app.MapControllers();
 

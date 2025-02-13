@@ -7,9 +7,9 @@ namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
 
 public sealed class UpdateProductCommandHandler : ICommandHandler<Command.UpdateProductCommand>
 {
-    private readonly IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> _productRepository;
+    private readonly IRepositoryBase<Domain.Entities.Product, Guid> _productRepository;
 
-    public UpdateProductCommandHandler(IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> repositoryBase)
+    public UpdateProductCommandHandler(IRepositoryBase<Domain.Entities.Product, Guid> repositoryBase)
     {
         _productRepository = repositoryBase;
     }

@@ -6,16 +6,16 @@ namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
 
 public sealed class CreateProductCommandHandler : ICommandHandler<Command.CreateProductCommand>
 {
-    private readonly IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> _productRepository;
+    private readonly IRepositoryBase<Domain.Entities.Product, Guid> _productRepository;
 
-    public CreateProductCommandHandler(IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> repositoryBase)
+    public CreateProductCommandHandler(IRepositoryBase<Domain.Entities.Product, Guid> repositoryBase)
     {
         _productRepository = repositoryBase;
     }
 
     public async Task<Result> Handle(Command.CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = DistributedSystem.Domain.Entities.Product.CreateProduct(
+        var product = Domain.Entities.Product.CreateProduct(
             Guid.NewGuid(),
             request.Name,
             request.Price,

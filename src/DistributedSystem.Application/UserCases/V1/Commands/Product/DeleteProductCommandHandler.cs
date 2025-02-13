@@ -7,9 +7,9 @@ namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
 
 public sealed class DeleteProductCommandHandler : ICommandHandler<Command.DeleteProductCommand>
 {
-    private readonly IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> _productRepository;
+    private readonly IRepositoryBase<Domain.Entities.Product, Guid> _productRepository;
 
-    public DeleteProductCommandHandler(IRepositoryBase<DistributedSystem.Domain.Entities.Product, Guid> repositoryBase)
+    public DeleteProductCommandHandler(IRepositoryBase<Domain.Entities.Product, Guid> repositoryBase)
     {
         _productRepository = repositoryBase;
     }

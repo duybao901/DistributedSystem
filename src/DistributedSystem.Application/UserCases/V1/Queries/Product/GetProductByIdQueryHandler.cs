@@ -6,11 +6,11 @@ using DistributedSystem.Domain.Abstractions.Repositories;
 using DistributedSystem.Domain.Exceptions;
 using DistributedSystem.Persistence;
 
-namespace DistributedSystem.Application.UserCases.V1.Queries;
+namespace DistributedSystem.Application.UserCases.V1.Queries.Product;
 
 internal class GetProductByIdQueryHandler : IQueryHandler<Query.GetProductByIdQuery, Response.ProductResponse>
 {
-    private readonly IRepositoryBaseDbContext<ApplicationDbContext, DistributedSystem.Domain.Entities.Product, Guid> _repositoryBaseDbContext;
+    private readonly IRepositoryBaseDbContext<ApplicationDbContext, Domain.Entities.Product, Guid> _repositoryBaseDbContext;
     private readonly IMapper _mapper;
 
     public GetProductByIdQueryHandler(IRepositoryBaseDbContext<ApplicationDbContext, Domain.Entities.Product, Guid> repositoryBaseDbContext, IMapper mapper)

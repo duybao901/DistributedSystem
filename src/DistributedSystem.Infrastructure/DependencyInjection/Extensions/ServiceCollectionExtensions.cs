@@ -8,13 +8,13 @@ namespace DistributedSystem.Infrastructure.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddInfrastructureServices(this IServiceCollection services)
+    public static void AddServicesInfrastructure(this IServiceCollection services)
     {
         services.AddTransient<IJwtTokenService, JwtTokenService>();
         services.AddTransient<ICacheService, CacheService>();
     }
 
-    public static void AddRedisService(this IServiceCollection services, IConfiguration configuration)
+    public static void AddRedisInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddStackExchangeRedisCache(redisOptions =>
         {

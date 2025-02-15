@@ -9,7 +9,7 @@ namespace DistributedSystem.Application.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddConfigureMediatR(this IServiceCollection services)
+    public static IServiceCollection AddMediatRApplication(this IServiceCollection services)
      => services.AddMediatR(config =>
          config.RegisterServicesFromAssembly(AssemblyReference.Assembly))
         .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>))
@@ -19,6 +19,6 @@ public static class ServiceCollectionExtensions
         .AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>)) // Measure Permance
         .AddTransient(typeof(IPipelineBehavior<,>), typeof(TracingPipelineBehavior<,>)); // Log/Tracing Request
 
-    public static IServiceCollection AddConfigureAutoMapper(this IServiceCollection services)
+    public static IServiceCollection AddAutoMapperApplication(this IServiceCollection services)
         => services.AddAutoMapper(typeof(ServiceProfile));
 }

@@ -21,7 +21,8 @@ builder.Host.UseSerilog();
 
 // Add Authentication & Authorization
 builder.Services.AddInfrastructureServices();
-builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddRedisService(builder.Configuration);
+builder.Services.AddJwtAuthenticationAPI(builder.Configuration);
 
 // Api
 builder.Services.AddControllers().AddApplicationPart(DistributedSystem.Presentation.AssemblyReference.Assembly);
@@ -31,6 +32,9 @@ builder.Services.AddSingleton<ProductApi>();
 builder.Services.AddConfigureMediatR();
 builder.Services.AddConfigureAutoMapper();
 
+// Middleware
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
 // Configure Options and SQL
 builder.Services.AddInterceptorPersistence();
 builder.Services.ConfigureSqlServerRetryOptionsPersistence(builder.Configuration.GetSection(nameof(SqlServerRetryOptions)));
@@ -39,9 +43,6 @@ builder.Services.AddSqlServerPersistence();
 
 // Add Carter
 builder.Services.AddCarter();
-
-// Middleware
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add Swagger
 builder.Services
@@ -68,9 +69,6 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 //var apiV1 = app.Services.GetRequiredService<ProductApi>();
 //apiV1.AddRoutes(versionedApi);
 
-// Add API Endpoint with carter module
-app.MapCarter();
-
 
 // Configure the HTTP request pipeline. 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
@@ -78,10 +76,13 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
+app.UseAuthentication(); // This need to be added before UseAuthorization
 app.UseAuthorization();
 
 //app.MapControllers();
+
+// Add API Endpoint with carter module
+app.MapCarter();
 
 try
 {

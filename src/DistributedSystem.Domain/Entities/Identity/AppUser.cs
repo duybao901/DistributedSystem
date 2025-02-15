@@ -10,6 +10,12 @@ public class AppUser : IdentityUser<Guid>
 
     public string FullName { get; set; }
 
+    public string Email { get; set; }
+
+    public string Password { get; set; }
+
+    public string UserName { get; set; }
+
     public DateTime? DayOfBirth { get; set; }
 
     public bool IsDirector { get; set; }

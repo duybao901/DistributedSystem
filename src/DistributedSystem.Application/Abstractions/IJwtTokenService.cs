@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace DistributedSystem.Application.Abstactions;
+namespace DistributedSystem.Application.Abstractions;
 
 public interface IJwtTokenService
 {

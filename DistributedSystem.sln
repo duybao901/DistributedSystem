@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{42166A80-1B0F-4F4F-AB83-4892D9EF3E90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{72C0040D-F215-453A-A5E3-9818CAEE84D4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystem.API", "src\DistributedSystem.API\DistributedSystem.API.csproj", "{628A79C8-29D1-445D-AE6A-B6117AE9E00C}"
 EndProject

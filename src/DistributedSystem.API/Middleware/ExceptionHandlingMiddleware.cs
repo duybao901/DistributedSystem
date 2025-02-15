@@ -49,9 +49,10 @@ internal sealed class ExceptionHandlingMiddleware : IMiddleware
     private static int GetStatusCode(Exception exception)
         => exception switch
         {
+            IdentityException.TokenException => StatusCodes.Status401Unauthorized,
             BadRequestException => StatusCodes.Status400BadRequest,
             NotFoundException => StatusCodes.Status404NotFound,
-            FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
+            // FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
 

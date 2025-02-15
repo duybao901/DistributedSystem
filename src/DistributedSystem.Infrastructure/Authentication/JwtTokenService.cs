@@ -1,4 +1,4 @@
-﻿using DistributedSystem.Application.Abstactions;
+﻿using DistributedSystem.Application.Abstractions;
 using DistributedSystem.Infrastructure.DependencyInjection.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -17,29 +17,26 @@ public class JwtTokenService : IJwtTokenService
     {
         configuration.GetSection(nameof(JwtOption)).Bind(jwtOption);
     }
-
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        var SecretKey = Encoding.UTF8.GetBytes(jwtOption.SecretKey);
-        var SecurityKey = new SymmetricSecurityKey(SecretKey);  // Khóa bí mật
+        var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOption.SecretKey));
+        var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-        var signinCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
-
-        var tokennOptions = new JwtSecurityToken(
+        var tokenOptions = new JwtSecurityToken(
             issuer: jwtOption.Issuer,
             audience: jwtOption.Audience,
             claims: claims,
             expires: DateTime.Now.AddMinutes(jwtOption.ExpireMin),
-            signingCredentials: signinCredentials);
+            signingCredentials: signinCredentials
+        );
 
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(tokennOptions);
-
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         return tokenString;
     }
 
     public string GenerateRefreshToken()
     {
-        var randomNumber = new Byte[32];
+        var randomNumber = new byte[32];
         using (var rng = RandomNumberGenerator.Create())
         {
             rng.GetBytes(randomNumber);
@@ -49,8 +46,7 @@ public class JwtTokenService : IJwtTokenService
 
     public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
-        var SecretKey = Encoding.UTF8.GetBytes(jwtOption.SecretKey);
-        var SecurityKey = new SymmetricSecurityKey(SecretKey);
+        var Key = Encoding.UTF8.GetBytes(jwtOption.SecretKey);
 
         var tokenValidationParameters = new TokenValidationParameters
         {
@@ -58,13 +54,13 @@ public class JwtTokenService : IJwtTokenService
             ValidateIssuer = false,
             ValidateLifetime = false, //here we are saying that we don't care about the token's expiration date
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = SecurityKey, // Khóa bí mật
+            IssuerSigningKey = new SymmetricSecurityKey(Key),
             ClockSkew = TimeSpan.Zero
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
-        JwtSecurityToken? jwtSecurityToken = securityToken as JwtSecurityToken;
+        JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
         if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             throw new SecurityTokenException("Invalid token");
 

@@ -1,10 +1,13 @@
 ﻿using Carter;
+using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Presentation.Abstractions;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System.Net.Http;
 namespace DistributedSystem.Presentation.APIs.Identity;
 public class AuthApi : ApiEndpoint, ICarterModule
 {
@@ -13,13 +16,42 @@ public class AuthApi : ApiEndpoint, ICarterModule
     {
         var group1 = app.NewVersionedApi("Authentication")
             .MapGroup(BaseUrl).HasApiVersion(1).RequireAuthorization();
+
         group1.MapPost("login", AuthenticationV1).AllowAnonymous();
+        group1.MapPost("refresh", RefreshTokenV1);
+        group1.MapPost("revoke", RevokeTokenV1);
+
     }
     public static async Task<IResult> AuthenticationV1(ISender sender, [FromBody] Contract.Services.V1.Identity.Query.Login login)
     {
         var result = await sender.Send(login);
+
         if (result.IsFailure)
             return HandlerFailure(result);
+
+        return Results.Ok(result);
+    }
+
+    public static async Task<IResult> RefreshTokenV1(ISender sender, HttpContext httpContext, [FromBody] Contract.Services.V1.Identity.Query.Token token)
+    {
+        var AccessToken = await httpContext.GetTokenAsync("access_token");
+        var result = await sender.Send(new Contract.Services.V1.Identity.Query.Token(AccessToken, token.RefreshToken));
+
+        if(result.IsFailure) 
+            return HandlerFailure(result);
+
+        return Results.Ok(result);
+    }
+
+    // Revoke Token còn hạn được lưu trong Redis
+    public static async Task<IResult> RevokeTokenV1(ISender sender, HttpContext httpContext, [FromBody] Contract.Services.V1.Identity.Command.Revoke revoke)
+    {
+        var AccessToken = await httpContext.GetTokenAsync("access_token");
+        var result = await sender.Send(new Contract.Services.V1.Identity.Command.Revoke(AccessToken));
+
+        if (result.IsFailure)
+            return HandlerFailure(result);
+
         return Results.Ok(result);
     }
 }

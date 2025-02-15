@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DependencyInjection\Options\" />
-    <Folder Include="UserCases\V1\Commands\Identity\" />
   </ItemGroup>
 
   <ItemGroup>

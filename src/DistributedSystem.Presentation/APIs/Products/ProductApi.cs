@@ -16,7 +16,7 @@ public class ProductApi : ApiEndpoint, ICarterModule
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        var group1 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(1);
+        var group1 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(1).RequireAuthorization();
 
         group1.MapPost(string.Empty, CreateProductsV1);
         group1.MapPut("{productId}", UpdateProductsV1);
@@ -59,9 +59,9 @@ public class ProductApi : ApiEndpoint, ICarterModule
         return Results.Ok(result);
     }
 
-    public static async Task<IResult> GetProductByIdV1(ISender sender, Guid productId, int a)
+    public static async Task<IResult> GetProductByIdV1(ISender sender, Guid productId)
     {
-        var getProductByIdQuery = new CommandV1.Query.GetProductByIdQuery(productId, a);
+        var getProductByIdQuery = new CommandV1.Query.GetProductByIdQuery(productId);
         var result = await sender.Send(getProductByIdQuery);
 
         return Results.Ok(result);

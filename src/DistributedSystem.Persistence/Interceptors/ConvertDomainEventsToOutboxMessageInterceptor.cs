@@ -48,7 +48,7 @@ public sealed class ConvertDomainEventsToOutboxMessageInterceptor
                     domainEvent,
                     new JsonSerializerSettings
                     {
-                        TypeNameHandling = TypeNameHandling.All,
+                        TypeNameHandling = TypeNameHandling.All, // thêm thông tin kiểu dữ liệu ($type) vào JSON
                     })
             })
             .ToList();

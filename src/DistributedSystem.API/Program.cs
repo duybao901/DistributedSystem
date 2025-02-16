@@ -38,6 +38,9 @@ builder.Services
     });
 
 // Add Authentication & Authorization
+builder.Services.AddMasstransitRabbitMQInfrastructure(builder.Configuration);
+builder.Services.AddQuartzInfrastructure();
+builder.Services.AddMediatRInfrastructure();
 builder.Services.AddServicesInfrastructure();
 builder.Services.AddRedisInfrastructure(builder.Configuration);
 

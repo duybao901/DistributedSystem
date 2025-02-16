@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{42166A80-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{72C0040D-F215-453A-A5E3-9818CAEE84D4}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.Dev.Infrastructure.yaml = docker-compose.Dev.Infrastructure.yaml
 		README.md = README.md
 	EndProjectSection
 EndProject

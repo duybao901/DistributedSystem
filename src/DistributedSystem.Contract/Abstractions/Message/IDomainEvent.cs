@@ -1,7 +1,8 @@
-﻿using MediatR;
+﻿using MassTransit;
 
 namespace DistributedSystem.Contract.Abstractions.Message;
 
-public interface IDomainEvent : INotification
+[ExcludeFromTopology] // Prevent create exchange for IDomainEvent
+public interface IDomainEvent
 {
 }

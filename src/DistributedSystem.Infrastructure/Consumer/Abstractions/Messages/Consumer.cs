@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using MediatR;
 
-namespace DistributedSystem.Infrastructure.Consumer.Abstractions;
+namespace DistributedSystem.Infrastructure.Consumer.Abstractions.Messages;
 
 public abstract class Consumer<TMessage> : IConsumer<TMessage>
     where TMessage : class, Contract.Abstractions.Message.IDomainEvent

@@ -1,5 +1,5 @@
 ﻿using DistributedSystem.Contract.Services.V1.Product;
-using DistributedSystem.Infrastructure.Consumer.Abstractions;
+using DistributedSystem.Infrastructure.Consumer.Abstractions.Messages;
 using MediatR;
 
 namespace DistributedSystem.Infrastructure.Consumer.MessageBus.Consumers.Events;

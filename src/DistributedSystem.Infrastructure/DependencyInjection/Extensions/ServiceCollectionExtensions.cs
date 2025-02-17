@@ -1,23 +1,49 @@
 ﻿using DistributedSystem.Application.Abstractions;
 using DistributedSystem.Contract.JsonConverters;
+using DistributedSystem.Domain.Entities;
 using DistributedSystem.Infrastructure.Authentication;
 using DistributedSystem.Infrastructure.BackgroundJobs;
 using DistributedSystem.Infrastructure.Caching;
+using DistributedSystem.Infrastructure.Consumer.Abstractions.Repositories;
+using DistributedSystem.Infrastructure.Consumer.Models;
+using DistributedSystem.Infrastructure.Consumer.Repositories;
 using DistributedSystem.Infrastructure.DependencyInjection.Options;
 using DistributedSystem.Infrastructure.PipelineObservers;
 using DistributedSystem.Infrastructure.PipeObservers;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
 using Quartz.Simpl;
+using System;
 using System.Reflection;
 
 namespace DistributedSystem.Infrastructure.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public static void ConfigureServicesInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        // Bind cấu hình từ appsettings.json vào MongoDbSettings
+        services.Configure<MongoDbSettings>(configuration.GetSection(nameof(MongoDbSettings)));
+
+        // 1. Đăng ký sử dụng IOptions<MongoDbSettings>
+        services.AddSingleton<IMongoDbSettings>(serviceProvider =>
+            serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+
+        // 2. Đăng ký MongoDbSettings trực tiếp (không sử dụng IOptions)
+        //services.AddSingleton<IMongoDbSettings>((IServiceProvider serviceprovider) =>
+        //{
+        //    var sv = new MongoDbSettings("mongodb://localhost:27017", "DistributedDatabase");
+        //    return sv;
+        //});
+
+        services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+    }
+
     public static void AddServicesInfrastructure(this IServiceCollection services)
     {
         services.AddTransient<IJwtTokenService, JwtTokenService>();
@@ -33,7 +59,6 @@ public static class ServiceCollectionExtensions
         });
     }
 
-    // Configure for masstransit with rabbitMQ
     // Configure for masstransit with rabbitMQ
     public static IServiceCollection AddMasstransitRabbitMQInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
@@ -116,7 +141,7 @@ public static class ServiceCollectionExtensions
                         trigger.ForJob(jobKey)
                             .WithSimpleSchedule(
                                 schedule =>
-                                    schedule.WithIntervalInSeconds(100)
+                                    schedule.WithInterval(TimeSpan.FromMicroseconds(100))
                                         .RepeatForever()));
 
             config.UseJobFactory<MicrosoftDependencyInjectionJobFactory>();

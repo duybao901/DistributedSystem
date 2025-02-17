@@ -11,7 +11,7 @@ using System.Data;
 namespace DistributedSystem.Infrastructure.BackgroundJobs;
 
 // [DisallowConcurrentExecution]: Ngăn chặn các instance khác nhau của cùng một job chạy đồng thời
-// Nếu job trước đó vẫn đang chạy khi đến lần trigger tiếp theo sau 100s, job mới sẽ bị hoãn lại (queued) cho đến khi job hiện tại hoàn thành.
+// Nếu job trước đó vẫn đang chạy khi đến lần trigger tiếp theo sau 100 miliseconds, job mới sẽ bị hoãn lại (queued) cho đến khi job hiện tại hoàn thành.
 [DisallowConcurrentExecution]
 public class ProcessOutBoxMessagesJob : IJob
 {

@@ -55,7 +55,7 @@ internal class ProjectProductDetailsWhenProductChangeEventHandler :
             throw new ArgumentNullException();
         }
 
-        await _productRepository.ReplaceOneAsync(product);
+        await _productRepository.DeleteOneAsync(p => p.Id == product.Id);
         return Result.Success();
     }
 }

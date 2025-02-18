@@ -16,7 +16,7 @@ public class ProductApi : ApiEndpoint, ICarterModule
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        var group1 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(1).RequireAuthorization();
+        var group1 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(1);
 
         group1.MapPost(string.Empty, CreateProductsV1);
         group1.MapPut("{productId}", UpdateProductsV1);

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DistributedSystem.Application\DistributedSystem.Application.csproj" />
+    <ProjectReference Include="..\DistributedSystem.Contract\DistributedSystem.Contract.csproj" />
     <ProjectReference Include="..\DistributedSystem.Persistence\DistributedSystem.Persistence.csproj" />
   </ItemGroup>
 

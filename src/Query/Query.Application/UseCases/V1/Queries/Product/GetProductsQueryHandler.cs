@@ -18,7 +18,7 @@ public sealed class GetProductsQueryHandler : IQueryHandler<Contract.Services.V1
 
     public async Task<Result<List<Response.ProductResponse>>> Handle(Contract.Services.V1.Product.Query.GetProductsQuery request, CancellationToken cancellationToken)
     {
-        var products = await _productRepository.FindAll(null);
+        var products = await _productRepository.FindAll();
         var result = new List<Response.ProductResponse>();
 
         foreach (var product in products) {

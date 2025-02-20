@@ -34,13 +34,18 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument>
         }
         return _collection.AsQueryable();
     }
-    public async Task<IEnumerable<TDocument>> FindAll(Expression<Func<TDocument, bool>> filterExpression)
+    public async Task<IEnumerable<TDocument>> FindAll(Expression<Func<TDocument, bool>> filterExpression = null)
     {
         if (filterExpression is not null)
         {
             return await _collection.Find(filterExpression).ToListAsync();
         }
-        return await _collection.Find(null).ToListAsync();
+        return await _collection.Find(string.Empty).ToListAsync();
+    }
+
+    public async Task<IEnumerable<TDocument>> FindAll()
+    {
+        return await _collection.Find(Builders<TDocument>.Filter.Empty).ToListAsync();
     }
 
     public virtual IEnumerable<TDocument> FilterBy(

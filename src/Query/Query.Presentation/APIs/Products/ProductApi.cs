@@ -20,9 +20,9 @@ public class ProductApi : ApiEndpoint, ICarterModule
         group1.MapGet(string.Empty, GetProductsV1);
         group1.MapGet("{productId}", GetProductByIdV1);
 
-        var group2 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(2);
-        group1.MapGet(string.Empty, GetProductsV1);
-        group1.MapGet("{productId}", GetProductByIdV1);
+        //var group2 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(2);
+        //group2.MapGet(string.Empty, GetProductsV1);
+        //group2.MapGet("{productId}", GetProductByIdV1);
     }
 
     public static async Task<IResult> GetProductsV1(ISender sender)

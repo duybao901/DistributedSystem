@@ -24,11 +24,11 @@ public class ProductApi : ApiEndpoint, ICarterModule
         //group1.MapGet(string.Empty, GetProductsV1);
         //group1.MapGet("{productId}", GetProductByIdV1);
 
-        var group2 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(2);
+        //var group2 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(2);
 
-        group1.MapPost(string.Empty, CreateProductsV1);
-        group1.MapPut("{productId}", UpdateProductsV1);
-        group1.MapDelete("{productId}", DeleteProductsV1);
+        //group2.MapPost(string.Empty, CreateProductsV1);
+        //group2.MapPut("{productId}", UpdateProductsV1);
+        //group2.MapDelete("{productId}", DeleteProductsV1);
         //group1.MapGet(string.Empty, GetProductsV1);
         //group1.MapGet("{productId}", GetProductByIdV1);
     }

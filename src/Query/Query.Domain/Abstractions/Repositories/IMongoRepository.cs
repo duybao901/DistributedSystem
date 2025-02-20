@@ -10,6 +10,8 @@ public interface IMongoRepository<TDocument>
 
     Task<IEnumerable<TDocument>> FindAll(Expression<Func<TDocument, bool>> filterExpression);
 
+    Task<IEnumerable<TDocument>> FindAll();
+
     IEnumerable<TDocument> FilterBy(
         Expression<Func<TDocument, bool>> filterExpression);
 

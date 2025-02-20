@@ -4,7 +4,7 @@ using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Contract.Services.V1.Identity;
 using System.Security.Claims;
 
-namespace DistributedSystem.Application.UserCases.V1.Queries.Identity;
+namespace DistributedSystem.Application.UseCases.V1.Queries.Identity;
 public class GetLoginQueryHandler : IQueryHandler<Query.Login, Response.Authenticated>
 {
     private readonly IJwtTokenService _jwtTokenService;

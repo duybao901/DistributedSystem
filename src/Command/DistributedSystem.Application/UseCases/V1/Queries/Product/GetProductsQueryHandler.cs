@@ -5,7 +5,7 @@ using DistributedSystem.Contract.Services.V1.Product;
 using DistributedSystem.Domain.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace DistributedSystem.Application.UserCases.V1.Queries.Product;
+namespace DistributedSystem.Application.UseCases.V1.Queries.Product;
 
 public sealed class GetProductsQueryHandler : IQueryHandler<Query.GetProductsQuery, List<Response.ProductResponse>>
 {

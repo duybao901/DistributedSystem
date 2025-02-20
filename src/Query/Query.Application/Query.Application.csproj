@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="DependencyInjection\Options\" />
-    <Folder Include="UseCases\V1\Queries\" />
   </ItemGroup>
 
 </Project>

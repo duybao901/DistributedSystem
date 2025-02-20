@@ -4,7 +4,7 @@ using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Contract.Services.V1.Identity;
 using System.Security.Claims;
 
-namespace DistributedSystem.Application.UserCases.V1.Commands.Identity;
+namespace DistributedSystem.Application.UseCases.V1.Commands.Identity;
 
 public class RevokeTokenCommandHandler : ICommandHandler<Command.Revoke>
 {

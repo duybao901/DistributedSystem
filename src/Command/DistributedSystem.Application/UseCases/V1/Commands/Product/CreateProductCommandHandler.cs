@@ -2,7 +2,7 @@
 using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Contract.Services.V1.Product;
 using DistributedSystem.Domain.Abstractions.Repositories;
-namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
+namespace DistributedSystem.Application.UseCases.V1.Commands.Product;
 
 public sealed class CreateProductCommandHandler : ICommandHandler<Command.CreateProductCommand>
 {

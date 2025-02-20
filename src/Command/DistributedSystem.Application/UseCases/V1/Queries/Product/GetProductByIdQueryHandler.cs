@@ -6,7 +6,7 @@ using DistributedSystem.Domain.Abstractions.Repositories;
 using DistributedSystem.Domain.Exceptions;
 using DistributedSystem.Persistence;
 
-namespace DistributedSystem.Application.UserCases.V1.Queries.Product;
+namespace DistributedSystem.Application.UseCases.V1.Queries.Product;
 
 internal class GetProductByIdQueryHandler : IQueryHandler<Query.GetProductByIdQuery, Response.ProductResponse>
 {

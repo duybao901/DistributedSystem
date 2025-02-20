@@ -3,7 +3,7 @@ using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Contract.Services.V1.Product;
 using DistributedSystem.Domain.Abstractions.Repositories;
 using DistributedSystem.Domain.Exceptions;
-namespace DistributedSystem.Application.UserCases.V1.Commands.Product;
+namespace DistributedSystem.Application.UseCases.V1.Commands.Product;
 
 public sealed class UpdateProductCommandHandler : ICommandHandler<Command.UpdateProductCommand>
 {

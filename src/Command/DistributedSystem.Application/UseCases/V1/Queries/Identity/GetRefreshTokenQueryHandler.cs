@@ -5,7 +5,7 @@ using DistributedSystem.Contract.Services.V1.Identity;
 using DistributedSystem.Domain.Exceptions;
 using System.Security.Claims;
 
-namespace DistributedSystem.Application.UserCases.V1.Queries.Identity;
+namespace DistributedSystem.Application.UseCases.V1.Queries.Identity;
 
 public class GetRefreshTokenQueryHandler : IQueryHandler<Query.Token, Response.Authenticated>
 {

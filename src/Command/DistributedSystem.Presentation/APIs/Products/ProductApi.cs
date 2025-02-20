@@ -21,8 +21,16 @@ public class ProductApi : ApiEndpoint, ICarterModule
         group1.MapPost(string.Empty, CreateProductsV1);
         group1.MapPut("{productId}", UpdateProductsV1);
         group1.MapDelete("{productId}", DeleteProductsV1);
-        group1.MapGet(string.Empty, GetProductsV1);
-        group1.MapGet("{productId}", GetProductByIdV1);
+        //group1.MapGet(string.Empty, GetProductsV1);
+        //group1.MapGet("{productId}", GetProductByIdV1);
+
+        var group2 = app.NewVersionedApi("products").MapGroup(BaseUrl).HasApiVersion(2);
+
+        group1.MapPost(string.Empty, CreateProductsV1);
+        group1.MapPut("{productId}", UpdateProductsV1);
+        group1.MapDelete("{productId}", DeleteProductsV1);
+        //group1.MapGet(string.Empty, GetProductsV1);
+        //group1.MapGet("{productId}", GetProductByIdV1);
     }
 
     public async static Task<IResult> CreateProductsV1(ISender sender, [FromBody] CommandV1.Command.CreateProductCommand createProduct)
@@ -50,7 +58,7 @@ public class ProductApi : ApiEndpoint, ICarterModule
         return Results.Ok(result);
     }
 
-    public static async Task<IResult> GetProductsV1(ISender sender)
+/*    public static async Task<IResult> GetProductsV1(ISender sender)
     {
         var getProductsQuery = new CommandV1.Query.GetProductsQuery();
         var result = await sender.Send(getProductsQuery);
@@ -64,5 +72,5 @@ public class ProductApi : ApiEndpoint, ICarterModule
         var result = await sender.Send(getProductByIdQuery);
 
         return Results.Ok(result);
-    }
+    }*/
 }

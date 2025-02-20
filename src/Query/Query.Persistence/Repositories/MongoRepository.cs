@@ -34,6 +34,14 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument>
         }
         return _collection.AsQueryable();
     }
+    public async Task<IEnumerable<TDocument>> FindAll(Expression<Func<TDocument, bool>> filterExpression)
+    {
+        if (filterExpression is not null)
+        {
+            return await _collection.Find(filterExpression).ToListAsync();
+        }
+        return await _collection.Find(null).ToListAsync();
+    }
 
     public virtual IEnumerable<TDocument> FilterBy(
         Expression<Func<TDocument, bool>> filterExpression)
@@ -74,7 +82,6 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument>
             return _collection.Find(filter).SingleOrDefaultAsync();
         });
     }
-
 
     public virtual void InsertOne(TDocument document)
     {

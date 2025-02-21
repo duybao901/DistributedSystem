@@ -57,6 +57,12 @@ public static class JwtExtensions
             };
         });
 
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("authPolicy", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+            });
+        });
     }
 }

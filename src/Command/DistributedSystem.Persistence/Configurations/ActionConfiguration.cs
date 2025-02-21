@@ -21,9 +21,9 @@ internal class ActionConfiguration : IEntityTypeConfiguration<Action>
 
         // Each User can have many Permission
         builder.HasMany(Action => Action.Permissions)
-            .WithOne()
-            .HasForeignKey(Permissions => Permissions.ActionId)
-            .IsRequired();
+               .WithOne()
+               .HasForeignKey(Permissions => Permissions.ActionId)
+               .IsRequired();
 
         // Each User can have many ActionInFunction
         builder.HasMany(Action => Action.ActionInFunctions)

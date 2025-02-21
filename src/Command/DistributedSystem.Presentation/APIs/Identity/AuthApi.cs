@@ -1,5 +1,4 @@
 ﻿using Carter;
-using DistributedSystem.Contract.Abstractions.Shared;
 using DistributedSystem.Presentation.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
 namespace DistributedSystem.Presentation.APIs.Identity;
 public class AuthApi : ApiEndpoint, ICarterModule
 {
@@ -37,7 +35,7 @@ public class AuthApi : ApiEndpoint, ICarterModule
         var AccessToken = await httpContext.GetTokenAsync("access_token");
         var result = await sender.Send(new Contract.Services.V1.Identity.Query.Token(AccessToken, token.RefreshToken));
 
-        if(result.IsFailure) 
+        if (result.IsFailure)
             return HandlerFailure(result);
 
         return Results.Ok(result);

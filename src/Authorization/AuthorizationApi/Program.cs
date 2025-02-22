@@ -1,15 +1,11 @@
+﻿using AuthorizationApi.APIs.Identity;
+using AuthorizationApi.DependencyInjection.Extensions;
+using AuthorizationApi.Middleware;
 using Carter;
-using Query.API.DependencyInjection.Extensions;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Query.API.Middleware;
 using Serilog;
-using Query.Persistence.DependencyInjection.Extensions;
-using Query.Infrastructure.DependencyInjection.Extensions;
-using Query.Application.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -27,7 +23,7 @@ builder.Services
         .AddSwaggerGenNewtonsoftSupport()
         .AddFluentValidationRulesToSwagger()
         .AddEndpointsApiExplorer()
-        .AddSwaggerAPI();
+        .AddSwaggerAuthorizationApi();
 
 builder.Services
     .AddApiVersioning(options => options.ReportApiVersions = true)
@@ -37,28 +33,34 @@ builder.Services
         options.SubstituteApiVersionInUrl = true;
     });
 
+// Api
+builder.Services.AddControllers().AddApplicationPart(AuthorizationApi.AssemblyReference.Assembly);
+builder.Services.AddSingleton<AuthApi>();
+
+// Service DI
+builder.Services.AddMediatRAuthorizationApi();
+builder.Services.AddRedisAuthorizationApi(builder.Configuration);
+builder.Services.AddServicesAuthorizationApi(); 
+builder.Services.AddJwtAuthenticationAPI(builder.Configuration);
+
 // Middleware
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-builder.Services.AddMediatRApplication();
-
-builder.Services.ConfigureServicesInfrastructure(builder.Configuration);
-builder.Services.AddMasstransitRabbitMQInfrastructure(builder.Configuration);
-builder.Services.AddMediatRInfrastructure();
-
-builder.Services.AddServicePersistence(builder.Configuration);
-
 var app = builder.Build();
 
-// Using middleware
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication(); // This need to be added before UseAuthorization
+app.UseAuthorization();
 
 // Add API Endpoint with carter module
 app.MapCarter();
 
 // Configure the HTTP request pipeline. 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
-    app.UseSwaggerAPI(); // => After MapCarter => Show Version
+    app.UseSwaggerAuthorizationApi(); // => After MapCarter => Show Version
 
 try
 {

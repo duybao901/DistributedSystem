@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AuthorizationApi.Attributes;
+using AuthorizationApi.DependencyInjection.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using ApiGateway.DependencyInjection.Options;
 using System.Text;
-using AuthorizationApi.Attributes;
-using AuthorizationApi.Abstractions;
-using AuthorizationApi.Caching;
 
-namespace ApiGateway.DependencyInjection.Extensions;
+namespace AuthorizationApi.DependencyInjection.Extensions;
 
 public static class JwtExtensions
 {
-    public static void AddJwtAuthenticationApiGateway(this IServiceCollection services, IConfiguration configuration)
+    public static void AddJwtAuthenticationAPI(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(options =>
         {
@@ -58,19 +56,8 @@ public static class JwtExtensions
                     return Task.CompletedTask;
                 },
             };
-
-            o.EventsType = typeof(CustomJwtBearerEvents);
         });
 
-        services.AddScoped<CustomJwtBearerEvents>();
-        services.AddScoped<ICacheService, CacheService>();
-
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy("authPolicy", policy =>
-            {
-                policy.RequireAuthenticatedUser();
-            });
-        });
+        services.AddAuthorization();
     }
 }

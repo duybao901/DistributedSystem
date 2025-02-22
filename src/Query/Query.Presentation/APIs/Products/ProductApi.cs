@@ -3,7 +3,6 @@ using DistributedSystem.Presentation.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 using CommandV1 = DistributedSystem.Contract.Services.V1.Product;

@@ -6,4 +6,12 @@ public static class ServiceCollectionExtensions
     {
         services.AddReverseProxy().LoadFromConfig(configuration.GetSection("ReverseProxy"));           
     }
+    public static void AddRedisApiGateway(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddStackExchangeRedisCache(redisOptions =>
+        {
+            var redisConnectionString = configuration.GetConnectionString("Redis");
+            redisOptions.Configuration = redisConnectionString;
+        });
+    }
 }

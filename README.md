@@ -6,4 +6,3 @@ docker exec -it redis redis-cli
 
 # RabitMQ
 docker compose -f docker-compose.Dev.infrastructure.yaml up
-

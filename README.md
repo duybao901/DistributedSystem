@@ -7,4 +7,4 @@ docker exec -it redis redis-cli
 # RabitMQ
 docker compose -f docker-compose.Dev.infrastructure.yaml up
 
-<img width="671" height="601" alt="JK drawio" src="https://github.com/user-attachments/assets/488f3be6-55e3-4667-aa3e-9eb72f70b6ae" />
+<img width="671" height="601" alt="JK drawio" src="https://github.com/user-attachments/assets/8c7ff2ae-d6be-40c3-a555-515786c0a74c" />
